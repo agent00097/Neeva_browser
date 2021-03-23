@@ -67,14 +67,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzK-My-8E3">
-                                <rect key="frame" x="0.0" y="136" width="414" height="628"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="paW-2B-Hsm">
                                 <rect key="frame" x="0.0" y="36" width="414" height="44"/>
                                 <items>
@@ -90,26 +82,28 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="aSs-Dk-Zzj"/>
                                 </connections>
                             </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5iS-ZA-WWR">
+                                <rect key="frame" x="0.0" y="136" width="414" height="628"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="F5b-IG-GCo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="17n-WM-m00"/>
-                            <constraint firstItem="YzK-My-8E3" firstAttribute="top" secondItem="FhS-4R-Uoj" secondAttribute="bottom" id="2gc-aY-ifu"/>
+                            <constraint firstItem="5iS-ZA-WWR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="2kT-dZ-oRE"/>
                             <constraint firstItem="FhS-4R-Uoj" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="7mo-cn-Sqv"/>
                             <constraint firstItem="FhS-4R-Uoj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8QA-M9-xDw"/>
                             <constraint firstItem="F5b-IG-GCo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="EpY-LU-OKK"/>
                             <constraint firstItem="paW-2B-Hsm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GpZ-IJ-6Ao"/>
                             <constraint firstItem="FhS-4R-Uoj" firstAttribute="top" secondItem="paW-2B-Hsm" secondAttribute="bottom" id="H75-Cm-DGl"/>
-                            <constraint firstItem="F5b-IG-GCo" firstAttribute="top" secondItem="YzK-My-8E3" secondAttribute="bottom" id="HG3-Fg-Asn"/>
                             <constraint firstItem="paW-2B-Hsm" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="36" id="Hfu-4A-Ops"/>
-                            <constraint firstItem="F5b-IG-GCo" firstAttribute="top" secondItem="YzK-My-8E3" secondAttribute="bottom" id="PwP-7r-3rt"/>
+                            <constraint firstItem="F5b-IG-GCo" firstAttribute="top" secondItem="5iS-ZA-WWR" secondAttribute="bottom" id="TnX-CB-1Cr"/>
+                            <constraint firstItem="5iS-ZA-WWR" firstAttribute="top" secondItem="FhS-4R-Uoj" secondAttribute="bottom" id="Vbl-Je-eLg"/>
                             <constraint firstItem="F5b-IG-GCo" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ft9-ir-Crq"/>
                             <constraint firstItem="FhS-4R-Uoj" firstAttribute="top" secondItem="paW-2B-Hsm" secondAttribute="bottom" id="ifX-Lq-fj2"/>
                             <constraint firstItem="paW-2B-Hsm" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="m7a-eu-MwF"/>
-                            <constraint firstItem="YzK-My-8E3" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="rbA-jE-arH"/>
-                            <constraint firstItem="YzK-My-8E3" firstAttribute="top" secondItem="FhS-4R-Uoj" secondAttribute="bottom" id="wEf-Jf-UH4"/>
-                            <constraint firstItem="YzK-My-8E3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zjG-F3-Bsp"/>
+                            <constraint firstItem="5iS-ZA-WWR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zoS-Hh-zmM"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -127,13 +121,13 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="browserWindow" destination="YzK-My-8E3" id="eKK-DO-Vd3"/>
+                        <outlet property="browserWindow" destination="5iS-ZA-WWR" id="f5x-wK-0qU"/>
                         <outlet property="searchBar" destination="FhS-4R-Uoj" id="BCr-pg-WDR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="67" y="65"/>
+            <point key="canvasLocation" x="66.666666666666671" y="64.955357142857139"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="7TJ-Ae-Egl">

@@ -11,46 +11,143 @@ import WebKit
 class ViewController: UIViewController, UISearchBarDelegate, WKNavigationDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var browserWindow: WKWebView!
+    //@IBOutlet weak var browserWindow: WKWebView!
+    
+    var currentWebView: WKWebView!
+    var errorView: UIView = UIView()
+    var errrorLabel: UILabel = UILabel()
+
+    
+    @IBOutlet weak var browserWindow: UIView!
+    
+    func delegSearchBar() {
+        searchBar.delegate = self
+    }
+    
+    func workWithWebView() {
+        let webAtt = WKWebViewConfiguration()
+        let frame = CGRect(x: 0.0, y: 0.0, width: browserWindow.frame.width, height: browserWindow.frame.height)
+        currentWebView = WKWebView(frame: frame, configuration: webAtt)
+        currentWebView.navigationDelegate = self
+        browserWindow.addSubview(currentWebView)
+    }
+    
+    func webViewError() {
+        var frame = CGRect(x: 0.0, y: 0.0, width: browserWindow.frame.width, height: browserWindow.frame.height)
+        errorView = UIView(frame: frame)
+        errorView.backgroundColor = UIColor.white
+        
+        frame = CGRect(x: 0.0, y: 0.0, width: frame.size.width, height: frame.size.height)
+        errrorLabel = UILabel(frame: frame)
+        errrorLabel.backgroundColor = UIColor.white
+        errrorLabel.textColor = UIColor.black
+        errrorLabel.text = "Error Encountered"
+        errrorLabel.textAlignment = .center
+        errrorLabel.font = UIFont(name: "HelveticaNeue", size: 25)
+        errrorLabel.numberOfLines = 0
+        
+    }
+    
+    func loadWebsite(_ input: String,_ formatNeeded: Bool) {
+        var encURL: String = input
+        if (formatNeeded) {
+            if(encURL.starts(with: "http://")) {
+                encURL = String(encURL.dropFirst(7))
+            } else if encURL.starts(with: "https://"){
+                encURL = String(encURL.dropFirst(8))
+            }
+        } else {
+            encURL = "https://www.google.com/search?dcr=0&q=" + encURL.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        }
+        
+        let urlToOpen: URL = URL(string: "\(encURL)")!
+        let urlRequest: URLRequest = URLRequest(url: urlToOpen)
+        currentWebView.load(urlRequest)
+        stopWebViewError()
+        searchBar.text = encURL.lowercased()
+    }
+    
+    func startWebViewError(_ doku: String) {
+        errrorLabel.text = doku
+        browserWindow.addSubview(errorView)
+        browserWindow.addSubview(errrorLabel)
+    }
+    
+    func stopWebViewError() {
+        errorView.removeFromSuperview()
+        errrorLabel.removeFromSuperview()
+    }
+    
+    //Rendering functions
+    
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        print("Just to test")
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        print("When finished")
+        //updateNavButton()
+    }
+    
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        print("started")
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        startWebViewError(error.localizedDescription)
+        //updateNavButton()
+    }
+    
+    func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        let cred = URLCredential(trust: challenge.protectionSpace.serverTrust!)
+        completionHandler(.useCredential, cred)
+    }
+    
+    
+    //bookmarkButton action
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        print(searchBar.text!)
+    }
+    
     
     @IBAction func backButton(_ sender: Any) {
-        if browserWindow.canGoBack {
-            browserWindow.goBack()
-        }
+        
     }
 
     @IBAction func reloadButton(_ sender: Any) {
-        browserWindow.reload()
+        
     }
     @IBAction func forwardButton(_ sender: Any) {
-        if browserWindow.canGoForward {
-            browserWindow.goForward()
-        }
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         
-        var searchQuery = searchBar.text
+        var searchQuery: String = (searchBar.text?.trimmingCharacters(in: .whitespaces))!
         
-        if searchQuery?.lowercased().range(of: "https://") == nil || searchQuery?.lowercased().range(of: "http://") == nil {
-            searchQuery = "https://" + searchQuery!
-        }
-        
-        if let url = URL(string: searchQuery!) {
-            
-            browserWindow.load(URLRequest(url: url))
-        } else {
-            print("ERROR")
+        if (!searchQuery.isEmpty) {
+            if (searchQuery.hasSuffix(".com") || searchQuery.hasSuffix(".com/")) {
+                loadWebsite(searchQuery, true)
+            }
+            else {
+                loadWebsite(searchQuery, false)
+            }
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        let defaultURL = URL(string: "https://mysterious-gorge-99398.herokuapp.com")!
+        delegSearchBar()
+        workWithWebView()
+        webViewError()
         
-        browserWindow.load(URLRequest(url: defaultURL))
+        
+        loadWebsite("https://mysterious-gorge-99398.herokuapp.com", false)
+        
+        //browserWindow.load(URLRequest(url: defaultURL))
         
     }
 

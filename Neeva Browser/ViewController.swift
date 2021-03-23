@@ -18,8 +18,10 @@ class ViewController: UIViewController, UISearchBarDelegate, WKNavigationDelegat
     var errrorLabel: UILabel = UILabel()
 
     
+    @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var browserWindow: UIView!
     
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
     func delegSearchBar() {
         searchBar.delegate = self
     }
@@ -86,7 +88,7 @@ class ViewController: UIViewController, UISearchBarDelegate, WKNavigationDelegat
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("When finished")
-        //updateNavButton()
+        updateNavButton()
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
@@ -95,7 +97,7 @@ class ViewController: UIViewController, UISearchBarDelegate, WKNavigationDelegat
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         startWebViewError(error.localizedDescription)
-        //updateNavButton()
+        updateNavButton()
     }
     
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -112,14 +114,40 @@ class ViewController: UIViewController, UISearchBarDelegate, WKNavigationDelegat
     
     
     @IBAction func backButton(_ sender: Any) {
-        
+        if (errorView.isDescendant(of: browserWindow)) {
+            stopWebViewError()
+        }
+        else {
+        if currentWebView.canGoBack {
+            currentWebView.goBack()
+            
+            
+        }
+            searchBar.text = currentWebView.url?.absoluteString        }
     }
 
+    func updateNavButton() {
+        if (currentWebView.canGoForward) {
+            forwardButton.isEnabled = true
+        }
+        else {
+            forwardButton.isEnabled = false
+        }
+        if (currentWebView.canGoBack) {
+            backButton.isEnabled = true
+        } else {
+            backButton.isEnabled = false
+        }
+    }
     @IBAction func reloadButton(_ sender: Any) {
-        
+        currentWebView.reload()
     }
     @IBAction func forwardButton(_ sender: Any) {
-        
+        if currentWebView.canGoForward {
+            currentWebView.goForward()
+            stopWebViewError()
+            searchBar.text = currentWebView.url?.absoluteString
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -145,7 +173,7 @@ class ViewController: UIViewController, UISearchBarDelegate, WKNavigationDelegat
         webViewError()
         
         
-        loadWebsite("https://mysterious-gorge-99398.herokuapp.com", false)
+        loadWebsite("https://mysterious-gorge-99398.herokuapp.com", true)
         
         //browserWindow.load(URLRequest(url: defaultURL))
         

@@ -121,7 +121,9 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="backButton" destination="HrE-4m-mXy" id="fRp-hU-lHe"/>
                         <outlet property="browserWindow" destination="5iS-ZA-WWR" id="f5x-wK-0qU"/>
+                        <outlet property="forwardButton" destination="WgL-h0-z12" id="fF1-2X-2KX"/>
                         <outlet property="searchBar" destination="FhS-4R-Uoj" id="BCr-pg-WDR"/>
                     </connections>
                 </viewController>

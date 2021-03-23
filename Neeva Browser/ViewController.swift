@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UISearchBarDelegate, WKNavigationDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var browserWindow: WKWebView!
@@ -25,6 +25,23 @@ class ViewController: UIViewController {
     @IBAction func forwardButton(_ sender: Any) {
         if browserWindow.canGoForward {
             browserWindow.goForward()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        
+        var searchQuery = searchBar.text
+        
+        if searchQuery?.lowercased().range(of: "https://") == nil || searchQuery?.lowercased().range(of: "http://") == nil {
+            searchQuery = "https://" + searchQuery!
+        }
+        
+        if let url = URL(string: searchQuery!) {
+            
+            browserWindow.load(URLRequest(url: url))
+        } else {
+            print("ERROR")
         }
     }
     override func viewDidLoad() {

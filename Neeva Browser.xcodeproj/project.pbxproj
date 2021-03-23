@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D1B4B41260A783C004A1559 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		3DF1AADA2609A9E4001FFD61 /* Neeva Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Neeva Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF1AADD2609A9E4001FFD61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DF1AADF2609A9E4001FFD61 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,11 +38,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D1B4B40260A783C004A1559 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D1B4B41260A783C004A1559 /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3DF1AAD12609A9E4001FFD61 = {
 			isa = PBXGroup;
 			children = (
 				3DF1AADC2609A9E4001FFD61 /* Neeva Browser */,
 				3DF1AADB2609A9E4001FFD61 /* Products */,
+				3D1B4B40260A783C004A1559 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
